@@ -50,6 +50,28 @@ app.post('/send-otp', async (req, res) => {
     }
 });
 
+// 4️⃣ Save or update user's name
+app.post('/save-name', async (req, res) => {
+    const { phone, name } = req.body;
+
+    try {
+        const user = await User.findOneAndUpdate(
+            { phone },
+            { $set: { name } },
+            { new: true } // return the updated document
+        );
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ success: true, message: 'Name updated successfully', user });
+    } catch (err) {
+        console.error('❌ Error saving name:', err.message);
+        res.status(500).json({ error: 'Server error while updating name' });
+    }
+});
+
 
 // 2️⃣ Verify OTP
 app.post('/verify-otp', async (req, res) => {
