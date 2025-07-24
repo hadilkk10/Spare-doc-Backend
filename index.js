@@ -52,7 +52,7 @@ app.post('/send-otp', async (req, res) => {
 
 // 4️⃣ Save or update user's name
 app.post('/save-name', async (req, res) => {
-    const { phone, name } = req.body;
+    let { phone, name } = req.body;
     
     // ✅ Normalize the phone number (remove +91 if present)
     phone = phone.replace(/^\+91/, '');
