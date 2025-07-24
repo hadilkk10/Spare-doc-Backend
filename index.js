@@ -58,7 +58,7 @@ app.post('/save-name', async (req, res) => {
         const user = await User.findOneAndUpdate(
             { phone },
             { $set: { name } },
-            { new: true } // return the updated document
+            { new: true } 
         );
 
         if (!user) {
@@ -150,6 +150,9 @@ app.post('/verify-otp', async (req, res) => {
 // 3️⃣ Register new user
 app.post('/register-user', async (req, res) => {
     const { name, phone } = req.body;
+    
+    // ✅ Normalize the phone number (remove +91 if present)
+    phone = phone.replace(/^\+91/, '');
 
     try {
         const newUser = await User.create({ name, phone });
