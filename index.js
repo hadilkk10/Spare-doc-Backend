@@ -5,8 +5,11 @@ import bodyParser from 'body-parser';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
+import cartRoutes from './routes/cartRoutes.js';
 
 import User from './models/User.js';
+import wishlistRoutes from './routes/wishlistRoutes.js';
+
 
 dotenv.config();
 
@@ -50,7 +53,9 @@ app.post('/send-otp', async (req, res) => {
     }
 });
 
-// 4️⃣ Save or update user's name
+app.use('/api/cart', cartRoutes);
+
+app.use('/api/wishlist', wishlistRoutes);
 app.post('/save-name', async (req, res) => {
     let { phone, name } = req.body;
     
